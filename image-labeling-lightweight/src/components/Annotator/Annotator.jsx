@@ -55,7 +55,7 @@ const Annotator = () => {
       width: chartContainerRef.current.clientWidth,
       height: chartContainerRef.current.clientHeight,
       layout: {
-        background: { color: 'transparent' },
+        background: { color: 'rgba(255, 255, 255, 0.01)' },
         textColor: '#333',
       },
       grid: {
@@ -78,8 +78,8 @@ const Annotator = () => {
     });
 
     const series = chart.addSeries(LineSeries, {
-      color: 'transparent',
-      lineWidth: 0,
+      color: 'rgba(0, 0, 0, 0.01)',
+      lineWidth: 1,
       priceLineVisible: false,
       lastValueVisible: false,
     });
@@ -205,19 +205,13 @@ const Annotator = () => {
 
   return (
     <CanvasContainer>
-      {!currentImage ? (
-        <>
-          <ChartWrapper ref={chartContainerRef} $cursor={getCursor()} style={{ opacity: 0, pointerEvents: 'none' }} />
-          <div style={{ textAlign: 'center', color: '#999', zIndex: 10, position: 'relative' }}>
-            <p>No image loaded</p>
-            <p>Upload an image to start annotating</p>
-          </div>
-        </>
-      ) : (
-        <>
-          <ImageBackground src={currentImage.src} alt={currentImage.name} />
-          <ChartWrapper ref={chartContainerRef} $cursor={getCursor()} />
-        </>
+      {currentImage && <ImageBackground src={currentImage.src} alt={currentImage.name} />}
+      <ChartWrapper ref={chartContainerRef} $cursor={getCursor()} />
+      {!currentImage && (
+        <div style={{ position: 'absolute', zIndex: 10, textAlign: 'center', color: '#999' }}>
+          <p>No image loaded</p>
+          <p>Upload an image to start annotating</p>
+        </div>
       )}
     </CanvasContainer>
   );
