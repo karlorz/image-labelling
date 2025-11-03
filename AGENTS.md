@@ -1,5 +1,46 @@
 # Image Labeling Demo - Project Guidelines & Memory
 
+## 🚨 CRITICAL AGENT CODING RULES
+
+**MANDATORY: Before writing any library-specific code, AI agents MUST:**
+
+1. **Consult Official Documentation via MCP Tools**:
+   - **Use Context7 MCP** (`mcp__context7__resolve-library-id` + `mcp__context7__get-library-docs`) for up-to-date library documentation
+   - **Use DeepWiki MCP** (`mcp__deepwiki__ask_question`) for official coding guidance from GitHub repositories
+   - **Query for ALL THREE library variants**: react-konva/konva, fabric, and lightweight-charts
+   - **Focus areas**: React integration patterns, canvas API usage, event handling, performance optimization
+
+2. **Quick Testing with Chrome DevTools MCP**:
+   - Use `mcp__chrome-devtools__*` tools to test implementations in real-time
+   - Validate drawing operations, event handlers, and rendering performance
+   - Test across different browsers using DevTools features
+   - Debug canvas rendering issues visually
+
+3. **Implementation Workflow**:
+   ```
+   Step 1: Query Context7/DeepWiki for library-specific React patterns
+   Step 2: Write code based on official guidance (not assumptions)
+   Step 3: Test immediately with Chrome DevTools MCP
+   Step 4: Iterate based on test results
+   ```
+
+4. **Why This Matters**:
+   - Prevents outdated API usage (e.g., Fabric.js v5 vs v6 breaking changes)
+   - Ensures React integration follows best practices (refs, effects, cleanup)
+   - Catches browser compatibility issues early
+   - Validates performance assumptions with real metrics
+
+**Example MCP Usage**:
+```javascript
+// Before implementing Fabric.js canvas:
+// 1. mcp__context7__resolve-library-id("fabric")
+// 2. mcp__context7__get-library-docs("/fabricjs/fabric.js", topic: "React integration")
+// 3. mcp__deepwiki__ask_question("fabricjs/fabric.js", "How to properly integrate fabric.Canvas with React useRef?")
+// 4. Write code, then test with mcp__chrome-devtools__navigate_page + evaluate_script
+```
+
+---
+
 ## Project Overview
 This document outlines the requirements and guidelines for a quick demo web app focused on image labeling. The app allows users to upload images, draw annotations (rectangles for bounding boxes and polygons for precise outlines), assign labels/classes, and export annotations in JSON format for data labeling tasks (e.g., ML datasets). The demo emphasizes simplicity, production-readiness, and interactivity, drawing inspiration from tools like Fabric.js demos.
 
@@ -377,7 +418,7 @@ Create three separate React projects for comparison:
 image-labelling/
 ├── image-labeling-konva/      # Variant A: react-konva implementation
 ├── image-labeling-fabric/     # Variant B: Fabric.js implementation
-├── image-labeling-lightweight/# Variant C: Lightweight Charts implementation
+├── image-labeling-lightweight/ # Variant C: Lightweight Charts implementation
 ├── AGENTS.md                   # This file - shared guidelines
 └── comparison-results.md       # Performance & usability comparison results
 ```
